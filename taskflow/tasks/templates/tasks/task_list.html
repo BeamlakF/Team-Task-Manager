@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tasks</title>
+  </head>
+  <body>
+    <h1>Task List</h1>
+    <a href="{% url 'home' %}">Go Home</a>
+    <ul>
+      {% for task in tasks %}
+        <li>{{ task.title }}</li>
+      {% empty %}
+        <li>No tasks found.</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

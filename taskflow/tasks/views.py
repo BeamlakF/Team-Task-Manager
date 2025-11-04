@@ -8,13 +8,9 @@ from django.contrib import messages
 def home(request):
     return render(request, 'tasks/home.html')
 
-@login_required
+
 def task_list(request):
-    user = request.user
-    if user.role == 'manager':
-        tasks = Task.objects.all().order_by('-created_at')
-    else:
-        tasks = Task.objects.filter(assigned_to=user).order_by('-created_at')
+    tasks = Task.objects.all()
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
 
