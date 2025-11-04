@@ -1,0 +1,41 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ task.title }}</h1>
+<p><strong>Description:</strong> {{ task.description }}</p>
+<p><strong>Assigned to:</strong> {{ task.assigned_to.username }}</p>
+<p><strong>Status:</strong> {% if task.is_completed %}✅ Completed{% else %}⏳ Pending{% endif %}</p>
+<p><strong>Due Date:</strong> {{ task.due_date|date:"M d, Y H:i" }}</p>
+
+<hr>
+<h3>Comments</h3>
+
+{% if comments %}
+  <ul>
+    {% for comment in comments %}
+      <li><strong>{{ comment.author.username }}</strong>: {{ comment.text }} ({{ comment.created_at|timesince }} ago)</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No comments yet.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+<form method="POST">
+  {% csrf_token %}
+  <textarea name="text" rows="3" placeholder="Add a comment..."></textarea><br>
+  <button type="submit">Post Comment</button>
+</form>
+{% else %}
+<p><a href="/admin/login/">Login</a> to add a comment.</p>
+{% endif %}
+
+<hr>
+<a href="{% url 'task_edit' task.pk %}">✏️ Edit</a> | 
+<a href="{% url 'task_delete' task.pk %}">🗑️ Delete</a> | 
+<a href="{% url 'task_list' %}">← Back to list</a>
+
+{% endblock %}

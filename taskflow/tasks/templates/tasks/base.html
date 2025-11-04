@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Team Task Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header>
+      <h1>Team Task Manager</h1>
+      <nav>
+        <a href="{% url 'task_list' %}">Tasks</a> |
+        <a href="#">About</a>
+      </nav>
+      <hr>
+    </header>
+
+    <main>
+      {% block content %}
+      <p> Hello there tasker!</p>
+      {% endblock %}
+    </main>
+
+    <footer>
+      <hr>
+      <p>&copy; 2025 Team Task Manager</p>
+    </footer>
+  </body>
+</html>

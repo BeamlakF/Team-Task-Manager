@@ -14,7 +14,6 @@ def task_list(request):
     return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
 
-@login_required
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
     comments = task.comments.all().order_by('-created_at')
@@ -29,7 +28,7 @@ def task_detail(request, pk):
     return render(request, 'tasks/task_detail.html', {'task': task, 'comments': comments})
 
 
-@login_required
+
 def task_create(request):
     if request.method == 'POST':
         title = request.POST.get('title')

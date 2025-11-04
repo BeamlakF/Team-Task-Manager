@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  color: #222;
+  margin: 40px;
+}
+nav a {
+  text-decoration: none;
+  color: #3366cc;
+  margin-right: 10px;
+}
+li {
+  margin-bottom: 10px;
+}

@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Tasks</title>
-  </head>
-  <body>
-    <h1>Task List</h1>
-    <a href="{% url 'home' %}">Go Home</a>
-    <ul>
-      {% for task in tasks %}
-        <li>{{ task.title }}</li>
-      {% empty %}
-        <li>No tasks found.</li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<h1>All Tasks</h1>
+
+<a href="{% url 'task_create' %}">➕ Create New Task</a>
+<hr>
+
+{% if tasks %}
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <a href="{% url 'task_detail' task.pk %}">
+          <strong>{{ task.title }}</strong>
+        </a>
+        — Assigned to: {{ task.assigned_to.username }}
+        — {% if task.is_completed %}✅ Completed{% else %}⏳ Pending{% endif %}
+        — Due: {{ task.due_date|date:"M d, Y H:i" }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No tasks found. <a href="{% url 'task_create' %}">Add one?</a></p>
+{% endif %}
+
+{% endblock %}
