@@ -5,6 +5,9 @@ from .forms import TaskForm
 from django.utils import timezone
 from django.contrib import messages
 
+def home(request):
+    return render(request, 'tasks/home.html')
+
 @login_required
 def task_list(request):
     user = request.user
